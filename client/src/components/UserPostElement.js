@@ -57,7 +57,7 @@ export default function UserPostElement({ post }) {
     const deletePost = async () => {
 
         try {
-            const response = await fetch(`http://127.0.0.1:5000/post/${post._id}`);
+            const response = await fetch(`https://glidethrough-backend.vercel.app/post/${post._id}`);
             const data = await response.json();
             console.log(data);
             if (response.ok) {
@@ -93,7 +93,7 @@ export default function UserPostElement({ post }) {
         console.log("hello");
         setTitleError('');
         setDescriptionError('');
-        const response = await fetch(`http://127.0.0.1:5000/edit/post/${post._id}`, {
+        const response = await fetch(`https://glidethrough-backend.vercel.app/edit/post/${post._id}`, {
             method: 'PUT',
             body: JSON.stringify({ title, description }),
             headers: { 'Content-Type': 'application/json' },

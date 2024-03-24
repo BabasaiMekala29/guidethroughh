@@ -9,6 +9,23 @@ const jwt = require('jsonwebtoken');
 const SendmailTransport = require('nodemailer/lib/sendmail-transport');
 var validator = require('validator');
 
+const allowCors = fn => async (req, res) => {
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', 'https://glidethrough-frontend.vercel.app')
+  // another common pattern
+  // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+  if (req.method === 'OPTIONS') {
+    res.status(200).end()
+    return
+  }
+  return await fn(req, res)
+}
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     host: 'smtp.gmail.com',
@@ -48,7 +65,7 @@ async function getRandomPostDescription() {
     }
 }
 
-module.exports.get_tipnotification = async (req, res) => {
+module.exports.get_tipnotification = allowCors(async (req, res) => {
     const { uid } = req.params;
     let userMail;
     try {
@@ -86,7 +103,7 @@ module.exports.get_tipnotification = async (req, res) => {
         console.log('userData');
         res.status(404).json({ error: 'User notification record not found' });
     }
-}
+})
 
 function handleErrors(err) {
     let errors = { username: '', email: '', password: '', title: '', description: '' };
@@ -129,7 +146,7 @@ function handleErrors(err) {
 
 const maxAge = 3 * 24 * 60 * 60;
 
-module.exports.get_otp = async (req, res) => {
+module.exports.get_otp = allowCors(async (req, res) => {
     const { email } = req.body;
     console.log(validator.isEmail(email));
     const otpNum = Math.floor(Math.random() * 10000).toString();
@@ -173,14 +190,14 @@ module.exports.get_otp = async (req, res) => {
         console.log('c2')
         console.log(err)
     }
-}
+})
 
 
 function createToken(id, username) {
     return jwt.sign({ id, username }, process.env.JWT_SECRET, { expiresIn: maxAge });
 }
 
-module.exports.signup_post = async (req, res) => {
+module.exports.signup_post = allowCors(async (req, res) => {
     const { username, email, password } = req.body;
     // console.log(req.body);  
     try {
@@ -196,9 +213,9 @@ module.exports.signup_post = async (req, res) => {
         // console.log(errors)
         res.status(400).json({ errors });
     }
-}
+})
 
-module.exports.login_post = async (req, res) => {
+module.exports.login_post = allowCors(async (req, res) => {
     const { email, password } = req.body;
     try {
         const user = await User.login(email, password);
@@ -216,17 +233,17 @@ module.exports.login_post = async (req, res) => {
         const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
-}
+})
 
-module.exports.logout_get = (req, res) => {
+module.exports.logout_get = allowCors((req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
     res.redirect('/');
 
-}
+})
 
 
 
-module.exports.profile_get = (req, res) => {
+module.exports.profile_get = allowCors((req, res) => {
     const token = req.cookies.jwt;
 
     if (!token) {
@@ -240,9 +257,9 @@ module.exports.profile_get = (req, res) => {
         res.json(info);
     })
 
-}
+})
 
-module.exports.create_post = async (req, res) => {
+module.exports.create_post = allowCors(async (req, res) => {
     const token = req.cookies.jwt;
     console.log("title ", req.body.title)
     if (!token) {
@@ -269,9 +286,9 @@ module.exports.create_post = async (req, res) => {
         }
 
     })
-}
+})
 
-module.exports.get_posts = async (req, res) => {
+module.exports.get_posts = allowCors(async (req, res) => {
     try {
         const { head, subhead } = req.params;
 
@@ -303,9 +320,9 @@ module.exports.get_posts = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+})
 
-module.exports.get_userposts = async (req, res) => {
+module.exports.get_userposts = allowCors(async (req, res) => {
     const { id } = req.params;
     try {
         const posts = await Post.find({
@@ -317,9 +334,9 @@ module.exports.get_userposts = async (req, res) => {
         console.log('userposts ', err)
         res.status(400).json({ err });
     }
-}
+})
 
-module.exports.delete_post = async (req, res) => {
+module.exports.delete_post = allowCors(async (req, res) => {
     const { id } = req.params;
     try {
         // Check if the post exists
@@ -335,9 +352,9 @@ module.exports.delete_post = async (req, res) => {
         console.error('Error deleting post:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.edit_post = async (req, res) => {
+module.exports.edit_post = allowCors(async (req, res) => {
     const { id } = req.params;
     const { title, description } = req.body;
     // console.log(title,description)
@@ -361,9 +378,9 @@ module.exports.edit_post = async (req, res) => {
         // console.error('Error updating post:', error);
         // res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.put_upvote = async (req, res) => {
+module.exports.put_upvote = allowCors(async (req, res) => {
     const { postid } = req.params;
     const { user } = req.body;
 
@@ -398,9 +415,9 @@ module.exports.put_upvote = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 
-}
+})
 
-module.exports.put_downvote = async (req, res) => {
+module.exports.put_downvote = allowCors(async (req, res) => {
     const { postid } = req.params;
     const { user } = req.body;
 
@@ -433,9 +450,9 @@ module.exports.put_downvote = async (req, res) => {
         console.error('Error toggling downvote:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.put_like = async (req, res) => {
+module.exports.put_like = allowCors(async (req, res) => {
     const { postid } = req.params;
     const { user } = req.body;
 
@@ -465,9 +482,9 @@ module.exports.put_like = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 
-}
+})
 
-module.exports.save_post = async (req, res) => {
+module.exports.save_post = allowCors(async (req, res) => {
     const { postid } = req.params;
     const { user, cmtId, username } = req.body;
     console.log(user, username)
@@ -514,9 +531,9 @@ module.exports.save_post = async (req, res) => {
         console.log(err)
         res.status(500).json({ error: 'Internal server error. Unable to save' });
     }
-}
+})
 
-module.exports.get_savedposts = async (req, res) => {
+module.exports.get_savedposts = allowCors(async (req, res) => {
     const { id } = req.params;
     console.log(id);
     try {
@@ -543,9 +560,9 @@ module.exports.get_savedposts = async (req, res) => {
         console.log(err)
         res.status(400).json({ err });
     }
-}
+})
 
-module.exports.unsavepost = async (req, res) => {
+module.exports.unsavepost = allowCors(async (req, res) => {
     const { postid } = req.params;
     const { id, username } = req.body;
     // console.log(id);
@@ -580,9 +597,9 @@ module.exports.unsavepost = async (req, res) => {
     catch (err) {
         res.status(400).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.get_sortedposts = async (req, res) => {
+module.exports.get_sortedposts = allowCors(async (req, res) => {
     const { head, subhead, sec } = req.params;
     try {
         //Popular, Most Useful, Recent, None
@@ -642,9 +659,9 @@ module.exports.get_sortedposts = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+})
 
-module.exports.put_comments = async (req, res) => {
+module.exports.put_comments = allowCors(async (req, res) => {
     const { postid } = req.params;
     const { user, comment } = req.body;
     try {
@@ -657,9 +674,9 @@ module.exports.put_comments = async (req, res) => {
         console.error('Error updating post:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.get_comments = async (req, res) => {
+module.exports.get_comments = allowCors(async (req, res) => {
     const { postid } = req.params;
     try {
         const post = await Post.findById(postid);
@@ -674,9 +691,9 @@ module.exports.get_comments = async (req, res) => {
         console.error('Error getting post:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.get_fullPost = async (req, res) => {
+module.exports.get_fullPost = allowCors(async (req, res) => {
     const { id } = req.params;
     // console.log("id ",id);
     try {
@@ -710,9 +727,9 @@ module.exports.get_fullPost = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 
-}
+})
 
-module.exports.get_interactions = async (req, res) => {
+module.exports.get_interactions = allowCors(async (req, res) => {
     const { id, username } = req.params;
     try {
         // const post = await Post.findById(id);
@@ -746,9 +763,9 @@ module.exports.get_interactions = async (req, res) => {
         console.error('Error fetching interactions:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.get_cominteractions = async (req, res) => {
+module.exports.get_cominteractions = allowCors(async (req, res) => {
     const { pid, cid, uname } = req.params;
     // console.log("pid",pid);
     // console.log("cid",cid);
@@ -785,11 +802,11 @@ module.exports.get_cominteractions = async (req, res) => {
         console.error('Error fetching comment interactions:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
 
 
-module.exports.put_comupvote = async (req, res) => {
+module.exports.put_comupvote = allowCors(async (req, res) => {
     const { pid, cid } = req.params;
     const { user } = req.body;
 
@@ -830,9 +847,9 @@ module.exports.put_comupvote = async (req, res) => {
         console.error('Error toggling upvote:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.put_comdownvote = async (req, res) => {
+module.exports.put_comdownvote = allowCors(async (req, res) => {
     const { pid, cid } = req.params;
     const { user } = req.body;
 
@@ -873,9 +890,9 @@ module.exports.put_comdownvote = async (req, res) => {
         console.error('Error toggling downvote:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
-}
+})
 
-module.exports.put_notification = async (req, res) => {
+module.exports.put_notification = allowCors(async (req, res) => {
     const { id } = req.params;
     const { user, by, comment, category, subcategory, section } = req.body;
     // console.log('user', user);
@@ -918,9 +935,9 @@ module.exports.put_notification = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 
-}
+})
 
-module.exports.get_notifications = async (req, res) => {
+module.exports.get_notifications = allowCors(async (req, res) => {
     const { userid } = req.params;
     // console.log('userid  ', userid)
     try {
@@ -936,9 +953,9 @@ module.exports.get_notifications = async (req, res) => {
     catch (err) {
         res.status(500).json({ error: 'Cannot find user' });
     }
-}
+})
 
-module.exports.get_searchresults = async (req, res) => {
+module.exports.get_searchresults = allowCors(async (req, res) => {
     const { searchValue } = req.params;
     try {
         const posts = await Post.find({
@@ -973,9 +990,9 @@ module.exports.get_searchresults = async (req, res) => {
     catch (error) {
         res.status(500).json({ message: 'Server Error' });
     }
-}
+})
 
-module.exports.get_notificationcount = async (req, res) => {
+module.exports.get_notificationcount = allowCors(async (req, res) => {
     const { userid } = req.params;
     try {
         const notifications = await Notifications.findOne({ userinfo: userid });
@@ -992,9 +1009,9 @@ module.exports.get_notificationcount = async (req, res) => {
         console.log("err", err)
         res.status(500).json({ error: 'Cannot find notifications' });
     }
-}
+})
 
-module.exports.make_viewed = async (req, res) => {
+module.exports.make_viewed = allowCors(async (req, res) => {
     const { nid } = req.params;
     const { user } = req.body;
     console.log(nid);
@@ -1015,9 +1032,9 @@ module.exports.make_viewed = async (req, res) => {
     catch (err) {
         res.status(500).json({ error: 'Cannot find user' });
     }
-}
+})
 
-module.exports.check_post = async (req, res) => {
+module.exports.check_post = allowCors(async (req, res) => {
     const { id } = req.params;
     try {
         const postData = await Post.findById(id);
@@ -1034,4 +1051,4 @@ module.exports.check_post = async (req, res) => {
         console.log(err)
         return res.status(404).json({ message: 'unable to find' });
     }
-}
+})

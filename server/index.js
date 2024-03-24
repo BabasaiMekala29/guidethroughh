@@ -33,8 +33,7 @@ const allowCors = fn => async (req, res) => {
 
 const handler = (req, res) => {
     const d = new Date()
-    next();
-    // res.end(JSON.stringify({d}));
+    res.end(JSON.stringify({d}));
   
 }
 

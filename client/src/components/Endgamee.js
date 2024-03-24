@@ -30,7 +30,7 @@ function Endgame() {
         const fetchPosts = async () => {
             console.log("hiii")
             try {
-                const response = await fetch(`http://127.0.0.1:5000/category/${head}/${subhead}`);
+                const response = await fetch(`https://glidethrough-backend.vercel.app/category/${head}/${subhead}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
                 }
@@ -102,7 +102,7 @@ function Endgame() {
         handleCloseNavMenuSort();
         setSelectedSec(sec);
         try {
-            const response = await fetch(`http://127.0.0.1:5000/category/${head}/${subhead}/sortby/${sec}`);
+            const response = await fetch(`https://glidethrough-backend.vercel.app/category/${head}/${subhead}/sortby/${sec}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch posts');
             }

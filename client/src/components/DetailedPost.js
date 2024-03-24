@@ -259,7 +259,7 @@ function DetailedPost() {
     }
 
     const handleShare = () => {
-        const postLink = `http://localhost:3000/post/${category}/${subcategory}/${section}/${id}`;
+        const postLink = `https://glidethrough-frontend.vercel.app/post/${category}/${subcategory}/${section}/${id}`;
         const tempInput = document.createElement('input');
         tempInput.value = postLink;
         document.body.appendChild(tempInput);

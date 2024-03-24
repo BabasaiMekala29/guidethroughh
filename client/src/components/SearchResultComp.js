@@ -17,7 +17,7 @@ function SearchResultComp() {
     useEffect(()=>{
         const fetchPosts = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:5000/search/${searchValue}`);
+                const response = await fetch(`https://glidethrough-backend.vercel.app/search/${searchValue}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
                 }

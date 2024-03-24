@@ -24,7 +24,7 @@ function CommentComp({ cmt, post }) {
     const fetchInteractionsData = async () => {
       try {
         // Fetch initial upvote,downvote count from backend
-        const response = await fetch(`http://127.0.0.1:5000/post/${post._id}/comment/${cmt._id}/cominteractions/${userInfo?.username}`);
+        const response = await fetch(`https://glidethrough-backend.vercel.app/post/${post._id}/comment/${cmt._id}/cominteractions/${userInfo?.username}`);
         console.log(`post/${post._id}/comment/${cmt._id}`);
         const data = await response.json();
         setUpvoteCount(data.pos);
@@ -47,7 +47,7 @@ function CommentComp({ cmt, post }) {
       return;
     }
     try {
-      const response = await fetch(`http://127.0.0.1:5000/post/${post._id}/comment/${cmt._id}/upvote`, {
+      const response = await fetch(`https://glidethrough-backend.vercel.app/post/${post._id}/comment/${cmt._id}/upvote`, {
         method: 'PUT',
         body: JSON.stringify({ user: userInfo?.username }),
         headers: {
@@ -72,7 +72,7 @@ function CommentComp({ cmt, post }) {
       return;
     }
     try {
-      const response = await fetch(`http://127.0.0.1:5000/post/${post._id}/comment/${cmt._id}/downvote`, {
+      const response = await fetch(`https://glidethrough-backend.vercel.app/post/${post._id}/comment/${cmt._id}/downvote`, {
         method: 'PUT',
         body: JSON.stringify({ user: userInfo?.username }),
         headers: {
@@ -114,7 +114,7 @@ function CommentComp({ cmt, post }) {
     }
 
     try {
-      const response = await fetch(`http://127.0.0.1:5000/post/${post._id}/save`, {
+      const response = await fetch(`https://glidethrough-backend.vercel.app/post/${post._id}/save`, {
         method: 'PUT',
         body: JSON.stringify({ user: userInfo?._id || userInfo?.id, cmtId: cmt._id, username: userInfo?.username }),
         headers: {

@@ -20,7 +20,7 @@ export default function LoginPage() {
     emailErrorEle.textContent = '';
     passwordErrorEle.textContent = '';
     try {
-      const response = await fetch('http://127.0.0.1:5000/login', {
+      const response = await fetch('https://glidethrough-backend.vercel.app/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: { 'Content-Type': 'application/json' },

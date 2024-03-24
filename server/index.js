@@ -32,8 +32,12 @@ const allowCors = fn => async (req, res) => {
 }
 
 const handler = (req, res) => {
-  const d = new Date()
-  res.end(JSON.stringify(d))
+  if (req.method !== 'OPTIONS') {
+    const d = new Date()
+    res.end(JSON.stringify(d))
+  }
+  // const d = new Date()
+  // res.end(JSON.stringify(d))
 }
 
 

@@ -11,7 +11,8 @@ const app = express();
 // middleware
 app.use(express.static('public'));
 app.use(cookieParser());
-app.use(cors({credentials:true, origin: 'http://localhost:3000'}));
+app.use(cors());
+app.use(cors({credentials:true, origin: 'https://glidethrough-frontend.vercel.app'}));
 app.use(express.json());
 
 

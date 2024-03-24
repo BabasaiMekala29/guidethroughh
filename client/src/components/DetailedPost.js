@@ -42,7 +42,7 @@ function DetailedPost() {
         let isMounted = true;
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:5000/getpost/${id}`);
+                const response = await fetch(`https://glidethrough-backend.vercel.app/getpost/${id}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch posts');
                 }
@@ -66,7 +66,7 @@ function DetailedPost() {
     useEffect(() => {
         const fetchInteractionsData = async () => {
             try {
-                const response = await fetch(`http://127.0.0.1:5000/post/${id}/interactions/${userInfo?.username}`);
+                const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/interactions/${userInfo?.username}`);
                 const data = await response.json();
                 setUpvoteCount(data.positive);
                 setDownvoteCount(data.negative);
@@ -91,7 +91,7 @@ function DetailedPost() {
         if (post) {
             const fetchCommentsData = async () => {
                 try {
-                    const response = await fetch(`http://127.0.0.1:5000/post/${id}/comment`);
+                    const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/comment`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch comments data');
                     }
@@ -118,7 +118,7 @@ function DetailedPost() {
             return;
         }
         try {
-            const response = await fetch(`http://127.0.0.1:5000/post/${id}/upvote`, {
+            const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/upvote`, {
                 method: 'PUT',
                 body: JSON.stringify({ user: userInfo?.username }),
                 headers: {
@@ -144,7 +144,7 @@ function DetailedPost() {
             return;
         }
         try {
-            const response = await fetch(`http://127.0.0.1:5000/post/${id}/downvote`, {
+            const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/downvote`, {
                 method: 'PUT',
                 body: JSON.stringify({ user: userInfo?.username }),
                 headers: {
@@ -169,7 +169,7 @@ function DetailedPost() {
             return;
         }
         try {
-            const response = await fetch(`http://127.0.0.1:5000/post/${id}/like`, {
+            const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/like`, {
                 method: 'PUT',
                 body: JSON.stringify({ user: userInfo?.username }),
                 headers: {
@@ -201,7 +201,7 @@ function DetailedPost() {
         }
         if (post) {
             try {
-                const response = await fetch(`http://127.0.0.1:5000/post/${id}/save`, {
+                const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/save`, {
                     method: 'PUT',
                     body: JSON.stringify({ user: userInfo?._id || userInfo?.id }),
                     headers: {
@@ -232,7 +232,7 @@ function DetailedPost() {
         }
         console.log('title ', post._id);
         try {
-            const response = await fetch(`http://127.0.0.1:5000/post/${id}/comment`, {
+            const response = await fetch(`https://glidethrough-backend.vercel.app/post/${id}/comment`, {
                 method: 'PUT',
                 body: JSON.stringify({ user: userInfo?.username, comment }),
                 headers: {
@@ -243,7 +243,7 @@ function DetailedPost() {
             // console.log(data);
             if (response.ok) {
                 setCommentsData(data);
-                await fetch(`http://127.0.0.1:5000/post/${id}/notify`, {
+                await fetch(`https://glidethrough-backend.vercel.app/post/${id}/notify`, {
                     method: 'PUT',
                     body: JSON.stringify({ user: post.author._id, by: userInfo?.username, comment, category: post.category, subcategory: post.subcategory, section: post.section }),
                     headers: {

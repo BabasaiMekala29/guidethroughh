@@ -14,7 +14,7 @@ function SavedPosts() {
             console.log("hiii")
             if (id) {
                 try {
-                    const response = await fetch(`http://127.0.0.1:5000/savedposts/${id}`);
+                    const response = await fetch(`https://glidethrough-backend.vercel.app/savedposts/${id}`);
                     if (!response.ok) {
                         throw new Error('Failed to fetch posts');
                     }

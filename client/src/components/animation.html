@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Text Animation</title>
+<style>
+    @keyframes changeText {
+        0% { content: "Guide"; }
+        55% { content: "G"; }
+        65% { content: "Gl"; }
+        70% { content: "Gli"; }
+        75% { content: "Glid"; }
+        80% { content: "Glide"; }
+        
+    }
+
+    .animated-text::after {
+        content: "Guide ";
+        display: inline-block;
+        animation: changeText 5s linear infinite;
+    }
+    .text{
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+</head>
+<body>
+
+<p class="text"><span class="animated-text"></span> <br><span style="margin-left: 28px;"> Through</span></p>
+<!-- <p>Through</p> -->
+</body>
+</html>

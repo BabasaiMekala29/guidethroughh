@@ -1,0 +1,145 @@
+/* body {
+    margin: 0;
+    padding: 0;
+    background-color: #fae28a;
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Montserrat", sans-serif;
+  } */
+
+/* @media only screen and (min-width: 768px){
+  
+
+  .bgLaptop{
+          backgroundImage: `url(${backImg})`,
+          backgroundSize: 'cover',
+          backgroundRepeat: 'no-repeat',
+          height: '100vh',
+          
+        }
+} */
+.animated-text {
+  font-size: 58px;
+  font-weight: 600;
+  min-width: 320px;
+  position: absolute;
+  top: 320px;
+
+}
+
+#mainContainer {
+  background-image: url('../src/images/new.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+#exploreBtn{
+  position: absolute; 
+  right: 20%;
+  bottom: 12%;
+  background-color: #cd5909;
+}
+
+@media only screen and (max-width:600px) {
+  .animated-text {
+    top: 145px;
+    left: 65px;
+  }
+
+  #mainContainer{
+    background-image: url('../src/images/pbg.jpg');
+  }
+
+  #exploreBtn{
+    right: 40%;
+    bottom: 18%;
+  }
+}
+
+.animated-text span {
+  position: relative;
+}
+
+.animated-text div {
+  text-indent: 55px;
+  position: relative;
+  color: #523e26
+}
+
+.animated-text span::before {
+  content: "uide";
+  color: #ce6957;
+  animation: words 6s infinite;
+}
+
+.animated-text span::after {
+  content: "";
+  position: absolute;
+  width: calc(100% + 8px);
+  height: 100%;
+  background-color: #fae28a;
+  border-left: 2px solid #ff7f50;
+  right: -8px;
+  animation: cursor .4s infinite, typing 6s steps(4) infinite;
+}
+
+
+
+@keyframes words {
+  0% {
+    content: "uide";
+  }
+
+  20% {
+    content: "lide";
+  }
+
+  40% {
+    content: "uide";
+  }
+
+  60% {
+    content: "lide";
+  }
+
+  80% {
+    content: "uide";
+  }
+
+  100% {
+    content: "lide";
+  }
+
+}
+
+@keyframes typing {
+
+  10%,
+  15%,
+  30%,
+  35%,
+  50%,
+  55%,
+  70%,
+  75%,
+  90%,
+  95% {
+    width: 0;
+  }
+
+  5%,
+  20%,
+  25%,
+  40%,
+  45%,
+  60%,
+  65%,
+  80%,
+  85% {
+    width: calc(100% + 8px);
+  }
+}

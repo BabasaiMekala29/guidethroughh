@@ -27,7 +27,7 @@ export default function SignupPage() {
     emailErrorEle.textContent = '';
     passwordErrorEle.textContent = '';
     try {
-      const response = await fetch('http://127.0.0.1:5000/signup', {
+      const response = await fetch('https://glidethrough-backend.vercel.app/signup', {
         method: 'POST',
         body: JSON.stringify({ username, email, password }),
         headers: { 'Content-Type': 'application/json' },
@@ -60,7 +60,7 @@ export default function SignupPage() {
   async function sendOtp(email){
     emailErrorEle.textContent = "";
     try{
-      const response = await fetch('http://127.0.0.1:5000/getotp', {
+      const response = await fetch('https://glidethrough-backend.vercel.app/getotp', {
           method: 'POST',
           body: JSON.stringify({ email }),
           headers: { 'Content-Type': 'application/json' },

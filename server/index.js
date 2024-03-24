@@ -34,11 +34,11 @@ const allowCors = fn => async (req, res) => {
 const handler = (req, res) => {
   if (req.method === 'OPTIONS') {
     const d = new Date()
-    res.end(JSON.stringify(d))
+    res.end(JSON.stringify(d));
   }
-  // const d = new Date()
-  // res.end(JSON.stringify(d))
 }
+
+
 
 
 
@@ -50,6 +50,5 @@ mongoose.connect(dbURI)
 
 // app.get('*', checkUser);
 
-
-app.use(allowCors(handler));
+module.exports = allowCors(handler)
 app.use(webRoutes);

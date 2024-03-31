@@ -5,22 +5,22 @@ import Header from './Header';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Navigate } from 'react-router-dom'
 import { UserContext } from '../UserContext';
-import { red,green } from '@mui/material/colors';
+import { red, green } from '@mui/material/colors';
 const defaultTheme = createTheme();
 
 export default function SignupPage() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [otp,setOtp] = useState(null);
-  const [emailedOtp,setEmailedOtp] = useState(null);
+  const [otp, setOtp] = useState(null);
+  // const [emailedOtp,setEmailedOtp] = useState(null);
   const [redirect, setRedirect] = useState(false);
   const { userInfo, setUserInfo } = useContext(UserContext);
   const userNameErrorEle = document.getElementById('userNameError');
   const emailErrorEle = document.getElementById('emailError');
   const passwordErrorEle = document.getElementById('passwordError');
   const otpMesgEle = document.getElementById('otpMesg');
-  const [isVerified,setVerified] = useState(null);
+  const [isVerified, setVerified] = useState(null);
   const handleSubmit = async (event) => {
     event.preventDefault();
     userNameErrorEle.textContent = '';
@@ -57,38 +57,55 @@ export default function SignupPage() {
     return <Navigate to='/' />
   }
 
-  async function sendOtp(email){
+  async function sendOtp(email) {
     emailErrorEle.textContent = "";
-    try{
+    try {
       const response = await fetch('https://glidethrough-backend.vercel.app/getotp', {
-          method: 'POST',
-          body: JSON.stringify({ email }),
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include'
-        })
-        const data = await response.json(); //otp or errormesg
-        console.log(data);
-        if(!(data.otp)){
-          emailErrorEle.textContent = data.errors;
-        }
-        else{
-          setEmailedOtp(data.otp);
-        }
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      })
+      const data = await response.json(); //otp or errormesg
+      console.log(data);
+      if (!(data.otp)) {
+        emailErrorEle.textContent = data.errors;
+      }
+      // else{
+      //   setEmailedOtp(data.otp);
+      // }
     }
-    catch(err){
+    catch (err) {
       console.log(err);
     }
   }
 
-  function verifyOtp(otp){
-      if(otp===emailedOtp){
+  async function verifyOtp(otp) {
+    try {
+      const response = await fetch('https://glidethrough-backend.vercel.app/verifyotp', {
+        method: 'POST',
+        body: JSON.stringify({ otp }),
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include'
+      })
+      const data = await response.json(); //otp or errormesg
+      console.log(data);
+      if (data.otp) {
         otpMesgEle.textContent = "Verified";
         setVerified(1);
       }
-      else{
+      else {
         otpMesgEle.textContent = "Incorrect OTP";
         setVerified(0);
       }
+      // else{
+      //   setEmailedOtp(data.otp);
+      // }
+    }
+    catch (err) {
+      console.log(err);
+    }
+    
   }
 
   return (
@@ -115,16 +132,16 @@ export default function SignupPage() {
 
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <TextField
-                      required
-                      fullWidth
-                      id="email"
-                      label="Email Address"
-                      name="email"
-                      autoComplete="email"
-                      value={email} onChange={e => setEmail(e.target.value)}
-                      autoFocus
-                      />
+                  <TextField
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value={email} onChange={e => setEmail(e.target.value)}
+                    autoFocus
+                  />
                   <Typography
                     color={'error'}
                     name="emailError"
@@ -132,7 +149,7 @@ export default function SignupPage() {
                     id="emailError">
 
                   </Typography>
-                  <Button onClick={()=>sendOtp(email)}>Get OTP</Button>
+                  <Button onClick={() => sendOtp(email)}>Get OTP</Button>
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -142,18 +159,18 @@ export default function SignupPage() {
                     fullWidth
                     id="otp"
                     label="Enter Code"
-                    value={otp} 
-                    onChange={e => setOtp(e.target.value)} 
+                    value={otp}
+                    onChange={e => setOtp(e.target.value)}
                   />
                   <Typography
-                    color={(isVerified===1)?green[500]:red[500]}
+                    color={(isVerified === 1) ? green[500] : red[500]}
                     name="otpMesg"
                     fullWidth
                     id="otpMesg">
                   </Typography>
-                  <Button onClick={()=>verifyOtp(otp)}>Verify</Button>
+                  <Button onClick={() => verifyOtp(otp)}>Verify</Button>
 
-                  
+
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
@@ -164,7 +181,7 @@ export default function SignupPage() {
                     id="userName"
                     label="user name"
                     value={username} onChange={e => setUsername(e.target.value)}
-                    disabled={(!isVerified)?true:false}
+                    disabled={(!isVerified) ? true : false}
                   />
                   <Typography
                     color={'error'}
@@ -186,7 +203,7 @@ export default function SignupPage() {
                     id="password"
                     autoComplete="new-password"
                     value={password} onChange={e => setPassword(e.target.value)}
-                    disabled={(!isVerified)?true:false}
+                    disabled={(!isVerified) ? true : false}
                   />
                   <Typography
                     color={'error'}

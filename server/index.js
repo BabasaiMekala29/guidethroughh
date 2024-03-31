@@ -10,7 +10,7 @@ const app = express();
 
 // middleware
 app.use(cors());
-app.use(cors({credentials:true, origin: 'https://glidethrough-frontend.vercel.app'}));
+// app.use(cors({credentials:true, origin: 'https://glidethrough-frontend.vercel.app'}));
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://glidethrough-frontend.vercel.app'); // Change this to your frontend domain
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');

@@ -10,14 +10,15 @@ const app = express();
 
 // middleware
 app.use(cors());
-app.use(cors({credentials:true, origin: 'https://glidethrough-frontend.vercel.app'}));
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', 'https://glidethrough-frontend.vercel.app'); // Change this to your frontend domain
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-//   res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
-//   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (e.g., cookies)
-//   next();
-// });
+// app.use(cors({credentials:true, origin: 'https://glidethrough-frontend.vercel.app'}));
+app.use((req, res, next) => {
+  
+  res.setHeader('Access-Control-Allow-Origin', 'https://glidethrough-frontend.vercel.app'); // Change this to your frontend domain
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version');
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Allow credentials (e.g., cookies)
+  next();
+});
 
 app.use(express.static('public'));
 app.use(cookieParser());

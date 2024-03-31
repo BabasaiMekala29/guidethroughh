@@ -7,6 +7,7 @@ router.post('/login', routeController.login_post);
 router.post('/logout', routeController.logout_get);
 router.get('/profile',routeController.profile_get);
 router.post('/getotp',routeController.get_otp);
+router.post('/verifyotp',routeController.verifyotp);
 router.post('/post',routeController.create_post);
 router.get('/category/:head/:subhead', routeController.get_posts);
 router.get('/user/:id',routeController.get_userposts);

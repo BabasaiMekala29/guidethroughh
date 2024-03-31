@@ -135,6 +135,11 @@ module.exports.get_otp = async (req, res) => {
     console.log(validator.isEmail(email));
     const otpNum = Math.floor(Math.random() * 10000).toString();
     otpText = otpNum;
+    if(otpText.length<4){
+        const num = Math.floor(Math.random() * 10).toString();
+        let res = otpText.concat(num)
+        otpText = res;
+    }
     console.log(typeof(otpNum))
     try{
         const userDoc = await User.findOne({email:email});

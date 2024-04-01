@@ -392,7 +392,7 @@ function Header() {
                                     onKeyDown={handleKeyPress}
                                 />
                             </Search>
-                            <Search sx={{ display: { xs: 'block', md: 'none' } }}>
+                            <Search sx={{ display: { xs: 'block', md: 'none' },marginLeft:'12px' }}>
                                 <SearchIconWrapper >
                                     <SearchIcon />
                                 </SearchIconWrapper>
@@ -466,7 +466,7 @@ function Header() {
                             }
                         </Box>
                         <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
-                            {username && <><Typography sx={{ color: "#fefefe" }}>{`HELLO, ${username.toUpperCase()} !`}</Typography>
+                            {username && <>
                                 <DailytipTooltip title={
                                     <React.Fragment>
                                         <Chip label={"Now you know: "} size="small" sx={{ fontWeight: '600', backgroundColor: '#d5722e', marginRight: '4px' }} />

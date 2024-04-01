@@ -355,20 +355,20 @@ function DetailedPost() {
 
                     {post?.section !== 'Q&A' && (
                         <>
-                            <LightTooltip title="Upvote">
+                            <LightTooltip title="I agree">
                                 <IconButton sx={{ display: 'flex' }} onClick={handleUpvote}>
                                     {(upvoted)?<img src={FilledUpvote} alt='filledupvote' height={'26px'} width={'26px'} />:<img src={Upvote} alt='upvote' height={'36px'} width={'36px'} />}
                                     
                                     <Typography>{upvoteCount}</Typography>
                                 </IconButton>
                             </LightTooltip>
-                            <LightTooltip title="Downvote">
+                            <LightTooltip title="I disagree">
                                 <IconButton sx={{ display: 'flex' }} onClick={handleDownvote}>
                                     {(downvoted)?<img src={FilledDownvote} alt='filleddownvote' height={'26px'} width={'26px'} />:<img src={Downvote} alt='downvote' height={'36px'} width={'36px'} />}
                                     <Typography>{downvoteCount}</Typography>
                                 </IconButton>
                             </LightTooltip>
-                            <LightTooltip title="Like">
+                            <LightTooltip title="That's helpful">
                                 <IconButton onClick={handleLike}>
                                 {(liked)?<FavoriteIcon />:<FavoriteBorderIcon />}
                                     <Typography>{likeCount}</Typography>

@@ -1,26 +1,4 @@
-/* body {
-    margin: 0;
-    padding: 0;
-    background-color: #fae28a;
-    color: #fff;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Montserrat", sans-serif;
-  } */
 
-/* @media only screen and (min-width: 768px){
-  
-
-  .bgLaptop{
-          backgroundImage: `url(${backImg})`,
-          backgroundSize: 'cover',
-          backgroundRepeat: 'no-repeat',
-          height: '100vh',
-          
-        }
-} */
 .animated-text {
   font-size: 58px;
   font-weight: 600;
@@ -44,20 +22,35 @@
   background-color: #cd5909;
 }
 
-@media only screen and (max-width:600px) {
-  .animated-text {
-    top: 145px;
-    left: 65px;
-  }
+@media only screen and (max-width:900px) {
+#mainContainer {
+  background-image: none;
+    background-color: #fae28a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
 
-  #mainContainer{
-    background-image: url('../src/images/pbg.jpg');
-  }
+.animated-text {
+  position: relative;
+  top: initial;
+  margin-bottom: 20px; /* Add margin to separate from description */
+}
 
-  #exploreBtn{
-    right: 40%;
-    bottom: 18%;
-  }
+#description {
+  display: inline;
+  text-align: center;
+  padding: 12px;
+}
+
+#exploreBtn {
+  position: relative;
+  right: initial;
+  bottom: initial;
+  margin-top: 20px; /* Add margin to separate from description */
+}
 }
 
 .animated-text span {

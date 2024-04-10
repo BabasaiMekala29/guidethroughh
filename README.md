@@ -1,12 +1,12 @@
 # Guide Through - Social Web Application
 
-Welcome to Glide Through, where we understand the value of time and focus. Our social web application is designed to help you navigate life's complexities effortlessly, providing guidance, support, and valuable insights along the way.
+Welcome to Guide Through, where we understand the value of time and focus. Our social web application is designed to help you navigate life's complexities effortlessly, providing guidance, support, and valuable insights along the way.
 
 ## Concept
 
-In today's fast-paced world, we often find ourselves spending more time figuring out what to do rather than actually doing it. Recognizing this challenge, we've created Glide Through, a platform that streamlines decision-making processes and empowers users to glide through life with ease.
+In today's fast-paced world, we often find ourselves spending more time figuring out what to do rather than actually doing it. Recognizing this challenge, we've created Guide Through, a platform that streamlines decision-making processes and empowers users to glide through life with ease.
 
-The application organizes content into various categories such as health, education, travel, food, gardening, pets, finance, and more. Each category is further divided into subcategories, offering users a structured approach to explore topics of interest. Whether you're looking for advice on mental health, tips for financial planning, or guidance on educational pursuits, Glide Through has you covered.
+The application organizes content into various categories such as health, education, travel, food, gardening, pets, finance, and more. Each category is further divided into subcategories, offering users a structured approach to explore topics of interest. Whether you're looking for advice on mental health, tips for financial planning, or guidance on educational pursuits, Guide Through has you covered.
 
 ## Features
 
@@ -24,14 +24,16 @@ The application organizes content into various categories such as health, educat
 ### Interactive Options for Users
 - React to posts with likes, agreements, disagreements, and shares.
 - Save posts for future reference.
+- Save responses for your question.
 - Utilize the search feature to find specific content within the platform.
+- Sort based on most agreed/most helpful/Recent
 
 ### Tip Notifications
 - Receive daily tips and reminders via email to enhance your journey through life.
 
 ## Contributing
 
-At Glide Through, we believe in the power of community. Share your experiences, advice, and recommendations to help others glide through their own challenges. Whether it's a personal story, a helpful tip, or a comprehensive roadmap, your contributions enrich the platform and support fellow users on their journeys.
+At Guide Through, we believe in the power of community. Share your experiences, advice, and recommendations to help others. Whether it's a personal story, a helpful tip, or a comprehensive roadmap, your contributions enrich the platform and support fellow users on their journeys.
 
 ## Get Started
 
@@ -39,6 +41,6 @@ Ready to glide through life with ease? Sign up now and join our community of use
 
 ## Contact
 
-Have questions or feedback? Reach out to us at [support@guidethrough.com](mailto:support@guidethrough04@gmail.com). We're here to assist you on your glide through life!
+Have questions or feedback? Reach out to us at(mailto:guidethrough04@gmail.com)
 
-Let's make navigating life's ups and downs a breeze with Glide Through!
+Let's make navigating life's ups and downs a breeze with Guide Through!

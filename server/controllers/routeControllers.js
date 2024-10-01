@@ -201,7 +201,7 @@ module.exports.signup_post = async (req, res) => {
         await tipNotification.create({ userinfo: user._id });
         const token = createToken(user._id, user.username);
         // console.log("token",token)
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, sameSite:'None', secure:true });
         res.status(201).json({ user, token });
     }
     catch (err) {
@@ -221,7 +221,7 @@ module.exports.login_post = async (req, res) => {
         }
         const token = createToken(user._id, user.username);
         // console.log("token",token)
-        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+        res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, sameSite:'None', secure:true });
         // console.log(user);
         res.status(200).json({ user, token });
     }

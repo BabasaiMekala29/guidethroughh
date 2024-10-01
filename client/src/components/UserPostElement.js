@@ -40,7 +40,7 @@ export default function UserPostElement({ post }) {
         }
     };
 
-
+    console.log("userpostt ",post);
     const words = post.description.split(/\s+/);
     const trimmedDescription = words.slice(0, 30).join(' ');
     const toggleExpand = () => {
@@ -191,7 +191,8 @@ export default function UserPostElement({ post }) {
 
                 >
                     <DialogTitle>Edit Post</DialogTitle>
-                    {(post.section === 'Blog') && <DialogContent>
+                    {(post.section === 'Blog') && 
+                    <DialogContent>
                         <TextField
                             required
                             margin="dense"
@@ -205,22 +206,22 @@ export default function UserPostElement({ post }) {
                             onChange={e => setTitle(e.target.value)}
                         />
                         <Typography color="error">{titleError}</Typography>
-                    </DialogContent>}
+                    </DialogContent>
+                    }
                     <DialogContent>
                         <TextField
                             required
-                            margin="dense"
-                            id="description"
-                            name="description"
-                            label="Description"
-                            type="text"
+                            margin='dense'
+                            label='description'
+                            type='text'
                             fullWidth
                             multiline
                             rows={(post.section === 'Blog') ? 5 : 1}
-                        variant={(post.section === 'Blog') ? 'outlined' : 'standard'}
-                        value={description}
-                        onChange={e => validateAndSetDescription(e.target.value)}
+                            variant={(post.section === 'Blog') ? 'outlined' : 'standard'}
+                            value={description}
+                            onChange={e => validateAndSetDescription(e.target.value)}
                         />
+                        
                         <Typography color="error">{descriptionError}</Typography>
                     </DialogContent>
                     <DialogActions>
